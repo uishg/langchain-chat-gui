@@ -31,13 +31,17 @@ def init():
 
 def main():
     init()
-
+    
     chat = ChatOpenAI(temperature=0)
+
+    with open('corpus.txt', 'r', encoding = 'utf-8') as f:
+        knowledge_data = f.read()
+
 
     # initialize message history
     if "messages" not in st.session_state:
         st.session_state.messages = [
-            SystemMessage(content="You are a helpful assistant.")
+            SystemMessage(content="You are a helpful assistant where you have to answer question only from the summary of this poem `\n`" + knowledge_data)
         ]
 
     st.header("Your own ChatGPT 🤖")
@@ -64,4 +68,5 @@ def main():
 
 
 if __name__ == '__main__':
+
     main()
